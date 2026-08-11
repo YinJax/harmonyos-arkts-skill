@@ -1,4 +1,4 @@
 interface:
-  display_name: "ArkTS Project Skill"
+  display_name: "HarmonyOS ArkTS Skill"
   short_description: "Build HarmonyOS ArkTS projects safely"
-  default_prompt: "Use $arkts-project-skill to implement this HarmonyOS ArkTS request."
+  default_prompt: "Use $harmonyos-arkts-skill to implement this HarmonyOS ArkTS request."
