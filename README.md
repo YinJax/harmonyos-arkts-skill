@@ -46,12 +46,57 @@
 
 ## &#23433;&#35013;
 
-&#25226;&#26412;&#20179;&#24211;&#22797;&#21046;&#21040; Codex Skills &#30446;&#24405;&#65292;&#28982;&#21518;&#37325;&#21551; Codex &#25110;&#21047;&#26032; Skill &#21457;&#29616;&#12290;
+&#23433;&#35013;&#21069;&#35831;&#30830;&#35748;&#26412;&#26426;&#24050;&#23433;&#35013; `git`&#65292;&#24182;&#22312;&#32456;&#31471;&#20013;&#21487;&#20197;&#36816;&#34892; `git --version`&#12290;
 
-&#20063;&#21487;&#20197;&#20174; GitHub &#23433;&#35013;&#65306;
+### macOS / Linux
 
 ```bash
-git clone https://github.com/Yjx98/harmonyos-arkts-engineering.git ~/.codex/skills/harmonyos-arkts-engineering
+mkdir -p ~/.codex/skills
+git clone --depth 1 https://github.com/Yjx98/harmonyos-arkts-engineering.git ~/.codex/skills/harmonyos-arkts-engineering
+```
+
+&#26356;&#26032;&#21040;&#26368;&#26032;&#29256;&#26412;&#65306;
+
+```bash
+git -C ~/.codex/skills/harmonyos-arkts-engineering pull --ff-only
+```
+
+### Windows PowerShell
+
+```powershell
+$skills = Join-Path $env:USERPROFILE ".codex\skills"
+New-Item -ItemType Directory -Force -Path $skills
+git clone --depth 1 https://github.com/Yjx98/harmonyos-arkts-engineering.git (Join-Path $skills "harmonyos-arkts-engineering")
+```
+
+&#26356;&#26032;&#21040;&#26368;&#26032;&#29256;&#26412;&#65306;
+
+```powershell
+git -C "$env:USERPROFILE\.codex\skills\harmonyos-arkts-engineering" pull --ff-only
+```
+
+### &#36890;&#36807; Codex &#21629;&#20196;&#23433;&#35013;
+
+&#22914;&#26524;&#20320;&#30340; Codex &#29615;&#22659;&#24050;&#23433;&#35013; `skill-installer`&#65292;&#21487;&#20197;&#30452;&#25509;&#35753; Codex &#23433;&#35013;&#65306;
+
+```text
+use $skill-installer install https://github.com/Yjx98/harmonyos-arkts-engineering
+```
+
+&#23433;&#35013;&#21518;&#37325;&#21551; Codex&#65292;&#25110;&#21047;&#26032; Skill &#21457;&#29616;&#12290;
+
+### &#25163;&#21160;&#23433;&#35013;
+
+&#19979;&#36733;&#26412;&#20179;&#24211;&#21518;&#65292;&#25226;&#25972;&#20010; `harmonyos-arkts-engineering` &#25991;&#20214;&#22841;&#22797;&#21046;&#21040;&#65306;
+
+```text
+~/.codex/skills/harmonyos-arkts-engineering
+```
+
+Windows &#23545;&#24212;&#36335;&#24452;&#36890;&#24120;&#26159;&#65306;
+
+```text
+%USERPROFILE%\.codex\skills\harmonyos-arkts-engineering
 ```
 
 ## &#20351;&#29992;&#31034;&#20363;
@@ -116,10 +161,57 @@ The skill is intentionally business-neutral. Use it for new HarmonyOS apps, exis
 
 ## Installation
 
-Copy this repository into your Codex skills directory, then restart Codex or refresh skill discovery.
+Make sure `git` is installed first. You can verify it with `git --version`.
+
+### macOS / Linux
 
 ```bash
-git clone https://github.com/Yjx98/harmonyos-arkts-engineering.git ~/.codex/skills/harmonyos-arkts-engineering
+mkdir -p ~/.codex/skills
+git clone --depth 1 https://github.com/Yjx98/harmonyos-arkts-engineering.git ~/.codex/skills/harmonyos-arkts-engineering
+```
+
+Update to the latest version:
+
+```bash
+git -C ~/.codex/skills/harmonyos-arkts-engineering pull --ff-only
+```
+
+### Windows PowerShell
+
+```powershell
+$skills = Join-Path $env:USERPROFILE ".codex\skills"
+New-Item -ItemType Directory -Force -Path $skills
+git clone --depth 1 https://github.com/Yjx98/harmonyos-arkts-engineering.git (Join-Path $skills "harmonyos-arkts-engineering")
+```
+
+Update to the latest version:
+
+```powershell
+git -C "$env:USERPROFILE\.codex\skills\harmonyos-arkts-engineering" pull --ff-only
+```
+
+### Install with a Codex Command
+
+If your Codex environment has `skill-installer`, ask Codex to install directly:
+
+```text
+use $skill-installer install https://github.com/Yjx98/harmonyos-arkts-engineering
+```
+
+After installation, restart Codex or refresh skill discovery.
+
+### Manual Install
+
+Download this repository and copy the whole `harmonyos-arkts-engineering` folder to:
+
+```text
+~/.codex/skills/harmonyos-arkts-engineering
+```
+
+On Windows, the path is usually:
+
+```text
+%USERPROFILE%\.codex\skills\harmonyos-arkts-engineering
 ```
 
 ## Example Prompts
