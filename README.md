@@ -117,9 +117,7 @@ Windows &#23545;&#24212;&#36335;&#24452;&#36890;&#24120;&#26159;&#65306;
 
 ## &#20351;&#29992;&#31034;&#20363;
 
-- &#20351;&#29992; `use $ark` &#23454;&#29616; ArkUI &#39029;&#38754;&#65292;&#24182;&#20445;&#25345;&#29616;&#26377;&#39033;&#30446;&#20998;&#23618;&#39118;&#26684;&#12290;
-- &#20351;&#29992; `use $ark` &#26816;&#26597; HarmonyOS ArkTS &#25913;&#21160;&#38656;&#35201;&#24590;&#20040;&#39564;&#35777;&#12290;
-- &#20351;&#29992; `use $ark` &#25509;&#20837;&#26435;&#38480;&#12289;&#25968;&#25454;&#25345;&#20037;&#21270;&#21644;&#24322;&#27493;&#38169;&#35823;&#22788;&#29702;&#12290;
+- 使用 `use $ark-scan` 在修改前识别 HarmonyOS ArkTS 项目结构、模块归属和安全边界。
 
 ## 命令拆分
 
@@ -271,9 +269,7 @@ On Windows, the path is usually:
 
 ## Example Prompts
 
-- Use `use $ark` to implement an ArkUI page while preserving the existing project layering style.
-- Use `use $ark` to decide how this HarmonyOS ArkTS change should be verified.
-- Use `use $ark` to add permission handling, persistence, and async error handling.
+- Use `use $ark-scan` before editing to identify the HarmonyOS ArkTS project structure, module ownership, and safe boundaries.
 
 ## Command Skills
 
