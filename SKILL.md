@@ -1,9 +1,9 @@
 ---
-name: harmonyos-arkts-engineering
+name: arkts-project-skill
 description: Implement or modify HarmonyOS Stage-model ArkTS projects. Use when requests involve ArkUI pages or components, state or lifecycle behavior, ViewModel or service flows, permissions, data persistence, files, networking, system capabilities, native bridges, tests, builds, or device verification.
 ---
 
-# HarmonyOS ArkTS Engineering
+# ArkTS Project Skill
 
 Use the target project as the source of truth. Preserve its working architecture and use official HarmonyOS APIs when the project does not already establish a compatible pattern.
 
