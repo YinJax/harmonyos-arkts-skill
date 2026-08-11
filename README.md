@@ -1,4 +1,4 @@
-# HarmonyOS ArkTS Skill
+# Ark
 
 <p align="center">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
@@ -51,13 +51,13 @@
 ### &#24555;&#36895;&#23433;&#35013;&#65288;&#25512;&#33616;&#65289;
 
 ```bash
-npx skills@latest add Yjx98/harmonyos-arkts-skill
+npx skills@latest add Yj1axuan/harmonyos-arkts-skill
 ```
 
 ### &#25351;&#23450;&#23433;&#35013;&#65306;Codex &#20840;&#23616;&#33539;&#22260;
 
 ```bash
-npx skills@latest add Yjx98/harmonyos-arkts-skill -a codex -g
+npx skills@latest add Yj1axuan/harmonyos-arkts-skill -a codex -g
 ```
 
 `-a codex` &#21482;&#21521; Codex &#23433;&#35013;&#65307;`-g` &#35753;&#23427;&#22312;&#25152;&#26377;&#39033;&#30446;&#20013;&#21487;&#29992;&#12290;&#19981;&#24102;&#21442;&#25968;&#30340;&#24555;&#36895;&#23433;&#35013;&#20250;&#30001; `skills` CLI &#24341;&#23548;&#36873;&#25321;&#23433;&#35013;&#33539;&#22260;&#12290;
@@ -78,7 +78,7 @@ npx skills@latest update harmonyos-arkts-skill -g
 
 ```bash
 mkdir -p ~/.codex/skills
-git clone --depth 1 https://github.com/Yjx98/harmonyos-arkts-skill.git ~/.codex/skills/harmonyos-arkts-skill
+git clone --depth 1 https://github.com/Yj1axuan/harmonyos-arkts-skill.git ~/.codex/skills/harmonyos-arkts-skill
 ```
 
 &#26356;&#26032;&#21040;&#26368;&#26032;&#29256;&#26412;&#65306;
@@ -92,7 +92,7 @@ git -C ~/.codex/skills/harmonyos-arkts-skill pull --ff-only
 ```powershell
 $skills = Join-Path $env:USERPROFILE ".codex\skills"
 New-Item -ItemType Directory -Force -Path $skills
-git clone --depth 1 https://github.com/Yjx98/harmonyos-arkts-skill.git (Join-Path $skills "harmonyos-arkts-skill")
+git clone --depth 1 https://github.com/Yj1axuan/harmonyos-arkts-skill.git (Join-Path $skills "harmonyos-arkts-skill")
 ```
 
 &#26356;&#26032;&#21040;&#26368;&#26032;&#29256;&#26412;&#65306;
@@ -117,15 +117,38 @@ Windows &#23545;&#24212;&#36335;&#24452;&#36890;&#24120;&#26159;&#65306;
 
 ## &#20351;&#29992;&#31034;&#20363;
 
-- &#20351;&#29992; `use $harmonyos-arkts-skill` &#23454;&#29616; ArkUI &#39029;&#38754;&#65292;&#24182;&#20445;&#25345;&#29616;&#26377;&#39033;&#30446;&#20998;&#23618;&#39118;&#26684;&#12290;
-- &#20351;&#29992; `use $harmonyos-arkts-skill` &#26816;&#26597; HarmonyOS ArkTS &#25913;&#21160;&#38656;&#35201;&#24590;&#20040;&#39564;&#35777;&#12290;
-- &#20351;&#29992; `use $harmonyos-arkts-skill` &#25509;&#20837;&#26435;&#38480;&#12289;&#25968;&#25454;&#25345;&#20037;&#21270;&#21644;&#24322;&#27493;&#38169;&#35823;&#22788;&#29702;&#12290;
+- &#20351;&#29992; `use $ark` &#23454;&#29616; ArkUI &#39029;&#38754;&#65292;&#24182;&#20445;&#25345;&#29616;&#26377;&#39033;&#30446;&#20998;&#23618;&#39118;&#26684;&#12290;
+- &#20351;&#29992; `use $ark` &#26816;&#26597; HarmonyOS ArkTS &#25913;&#21160;&#38656;&#35201;&#24590;&#20040;&#39564;&#35777;&#12290;
+- &#20351;&#29992; `use $ark` &#25509;&#20837;&#26435;&#38480;&#12289;&#25968;&#25454;&#25345;&#20037;&#21270;&#21644;&#24322;&#27493;&#38169;&#35823;&#22788;&#29702;&#12290;
+
+## 命令拆分
+
+参考 Waza 的命令式 Skill 组织方式，本仓库将通用鸿蒙工程能力拆分为一个总入口和五个专用命令：
+
+| 命令 | 适用场景 | 输出 |
+| --- | --- | --- |
+| `use $ark` | 不确定该用哪个命令，或需要先路由任务 | 推荐具体命令和安全边界 |
+| `use $ark-scan` | 开始修改前识别项目结构、模块归属和不可触碰区域 | 项目边界、受影响路径、保护面 |
+| `use $ark-ui` | ArkUI 页面、组件、状态、布局、导航、生命周期 | 状态归属清晰的局部 UI 改动 |
+| `use $ark-flow` | ViewModel、service、repository、DTO、加载和错误流 | 可追踪的分层异步业务流程 |
+| `use $ark-kit` | 权限、文件、存储、网络、WebView、Native、设备能力 | 带授权、异常和配置边界的系统能力接入 |
+| `use $ark-check` | 测试、构建、打包、真机、日志、回归验证 | 与风险匹配的验证路线和结果说明 |
 
 ## &#20179;&#24211;&#32467;&#26500;
 
 ```text
 harmonyos-arkts-skill/
 |-- SKILL.md
+|-- ark-scan/
+|   `-- SKILL.md
+|-- ark-ui/
+|   `-- SKILL.md
+|-- ark-flow/
+|   `-- SKILL.md
+|-- ark-kit/
+|   `-- SKILL.md
+|-- ark-check/
+|   `-- SKILL.md
 |-- agents/
 |   `-- openai.yaml
 |-- references/
@@ -182,13 +205,13 @@ Use the `skills` installer when possible. If you also use Git cloning or a manua
 ### Quick Install (Recommended)
 
 ```bash
-npx skills@latest add Yjx98/harmonyos-arkts-skill
+npx skills@latest add Yj1axuan/harmonyos-arkts-skill
 ```
 
 ### Specific Install: Codex Global
 
 ```bash
-npx skills@latest add Yjx98/harmonyos-arkts-skill -a codex -g
+npx skills@latest add Yj1axuan/harmonyos-arkts-skill -a codex -g
 ```
 
 `-a codex` targets Codex only. `-g` makes the skill available across projects. The quick-install command lets the `skills` CLI guide the installation scope.
@@ -209,7 +232,7 @@ If you do not use Node.js / npm, make sure `git` is installed first. You can ver
 
 ```bash
 mkdir -p ~/.codex/skills
-git clone --depth 1 https://github.com/Yjx98/harmonyos-arkts-skill.git ~/.codex/skills/harmonyos-arkts-skill
+git clone --depth 1 https://github.com/Yj1axuan/harmonyos-arkts-skill.git ~/.codex/skills/harmonyos-arkts-skill
 ```
 
 Update to the latest version:
@@ -223,7 +246,7 @@ git -C ~/.codex/skills/harmonyos-arkts-skill pull --ff-only
 ```powershell
 $skills = Join-Path $env:USERPROFILE ".codex\skills"
 New-Item -ItemType Directory -Force -Path $skills
-git clone --depth 1 https://github.com/Yjx98/harmonyos-arkts-skill.git (Join-Path $skills "harmonyos-arkts-skill")
+git clone --depth 1 https://github.com/Yj1axuan/harmonyos-arkts-skill.git (Join-Path $skills "harmonyos-arkts-skill")
 ```
 
 Update to the latest version:
@@ -248,15 +271,38 @@ On Windows, the path is usually:
 
 ## Example Prompts
 
-- Use `use $harmonyos-arkts-skill` to implement an ArkUI page while preserving the existing project layering style.
-- Use `use $harmonyos-arkts-skill` to decide how this HarmonyOS ArkTS change should be verified.
-- Use `use $harmonyos-arkts-skill` to add permission handling, persistence, and async error handling.
+- Use `use $ark` to implement an ArkUI page while preserving the existing project layering style.
+- Use `use $ark` to decide how this HarmonyOS ArkTS change should be verified.
+- Use `use $ark` to add permission handling, persistence, and async error handling.
+
+## Command Skills
+
+Following Waza's command-style skill organization, this repository now exposes one router command and five focused commands:
+
+| Command | Use for | Outcome |
+| --- | --- | --- |
+| `use $ark` | Broad requests or command selection | Routes the task and names the safe boundary |
+| `use $ark-scan` | Project structure, ownership, protected configuration, and safe editing boundaries | Project boundary and next command |
+| `use $ark-ui` | ArkUI pages, components, state, layout, navigation, and lifecycle | Local UI change with clear state ownership |
+| `use $ark-flow` | ViewModel, service, repository, DTO, loading, cache, and async coordination | Layered flow with pending, success, and failure paths |
+| `use $ark-kit` | Permissions, files, storage, network, WebView, native bridges, and device APIs | Capability integration with authorization and error handling |
+| `use $ark-check` | Tests, builds, packaging, installs, device checks, logs, and review readiness | Risk-based verification evidence |
 
 ## Repository Layout
 
 ```text
 harmonyos-arkts-skill/
 |-- SKILL.md
+|-- ark-scan/
+|   `-- SKILL.md
+|-- ark-ui/
+|   `-- SKILL.md
+|-- ark-flow/
+|   `-- SKILL.md
+|-- ark-kit/
+|   `-- SKILL.md
+|-- ark-check/
+|   `-- SKILL.md
 |-- agents/
 |   `-- openai.yaml
 |-- references/
