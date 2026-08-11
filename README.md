@@ -46,28 +46,29 @@
 
 ## &#23433;&#35013;
 
-&#25512;&#33616;&#20351;&#29992; `npx skills` &#23433;&#35013;&#65306;&#23427;&#20250;&#33258;&#21160;&#25214;&#21040; Codex&#65292;&#24182;&#25226;&#26412; Skill &#23433;&#35013;&#21040;&#20840;&#23616;&#33539;&#22260;&#12290;&#38656;&#35201;&#26412;&#26426;&#24050;&#23433;&#35013; Node.js 18+&#65288;&#21253;&#21547; `npx`&#65289;&#12290;
+&#25512;&#33616;&#20351;&#29992; `skills` &#23433;&#35013;&#22120;&#12290;&#22914;&#26524;&#21478;&#22806;&#20351;&#29992; Git &#22797;&#21046;&#25110;&#25163;&#21160;&#23433;&#35013;&#65292;&#35831;&#19981;&#35201;&#21516;&#26102;&#25226;&#21516;&#19968; Skill &#23433;&#35013;&#21040;&#21516;&#19968;&#20301;&#32622;&#12290;&#38656;&#35201;&#26412;&#26426;&#24050;&#23433;&#35013; Node.js 18+&#65288;&#21253;&#21547; `npx`&#65289;&#12290;
 
-### &#25512;&#33616;&#65306;npx skills
-
-```bash
-npx skills add Yjx98/harmonyos-arkts-engineering -g -a codex
-```
-
-&#26356;&#26032;&#21040;&#26368;&#26032;&#29256;&#26412;&#65306;
+### &#24555;&#36895;&#23433;&#35013;&#65288;&#25512;&#33616;&#65289;
 
 ```bash
-npx skills update harmonyos-arkts-engineering -g
+npx skills@latest add Yjx98/harmonyos-arkts-engineering
 ```
 
-`npx` &#20250;&#25353;&#38656;&#19979;&#36733;&#24182;&#36816;&#34892; `skills` CLI&#65292;&#19981;&#38656;&#35201;&#20808;&#20840;&#23616;&#23433;&#35013;&#19968;&#20010; npm &#21253;&#12290;&#22914;&#26524;&#24076;&#26395;&#33258;&#34892;&#31649;&#29702; CLI&#65292;&#20063;&#21487;&#20197;&#65306;
+### &#25351;&#23450;&#23433;&#35013;&#65306;Codex &#20840;&#23616;&#33539;&#22260;
 
 ```bash
-npm install --global skills
-skills add Yjx98/harmonyos-arkts-engineering -g -a codex
+npx skills@latest add Yjx98/harmonyos-arkts-engineering -a codex -g
 ```
 
-&#23433;&#35013;&#21518;&#37325;&#21551; Codex&#65292;&#25110;&#21047;&#26032; Skill &#21457;&#29616;&#12290;
+`-a codex` &#21482;&#21521; Codex &#23433;&#35013;&#65307;`-g` &#35753;&#23427;&#22312;&#25152;&#26377;&#39033;&#30446;&#20013;&#21487;&#29992;&#12290;&#19981;&#24102;&#21442;&#25968;&#30340;&#24555;&#36895;&#23433;&#35013;&#20250;&#30001; `skills` CLI &#24341;&#23548;&#36873;&#25321;&#23433;&#35013;&#33539;&#22260;&#12290;
+
+### &#26356;&#26032;
+
+```bash
+npx skills@latest update harmonyos-arkts-engineering -g
+```
+
+`npx` &#20250;&#22312;&#38656;&#35201;&#26102;&#19979;&#36733;&#24182;&#36816;&#34892;&#26368;&#26032;&#29256;&#26412;&#30340; `skills` CLI&#65292;&#26080;&#38656;&#20808;&#20840;&#23616;&#23433;&#35013; npm &#21253;&#12290;&#23433;&#35013;&#21518;&#37325;&#21551; Codex&#65292;&#25110;&#21047;&#26032; Skill &#21457;&#29616;&#12290;
 
 ### &#22791;&#36873;&#65306;Git &#23433;&#35013;
 
@@ -99,16 +100,6 @@ git clone --depth 1 https://github.com/Yjx98/harmonyos-arkts-engineering.git (Jo
 ```powershell
 git -C "$env:USERPROFILE\.codex\skills\harmonyos-arkts-engineering" pull --ff-only
 ```
-
-### &#36890;&#36807; Codex &#21629;&#20196;&#23433;&#35013;
-
-&#22914;&#26524;&#20320;&#30340; Codex &#29615;&#22659;&#24050;&#23433;&#35013; `skill-installer`&#65292;&#21487;&#20197;&#30452;&#25509;&#35753; Codex &#23433;&#35013;&#65306;
-
-```text
-use $skill-installer install https://github.com/Yjx98/harmonyos-arkts-engineering
-```
-
-&#23433;&#35013;&#21518;&#37325;&#21551; Codex&#65292;&#25110;&#21047;&#26032; Skill &#21457;&#29616;&#12290;
 
 ### &#25163;&#21160;&#23433;&#35013;
 
@@ -186,28 +177,29 @@ The skill is intentionally business-neutral. Use it for new HarmonyOS apps, exis
 
 ## Installation
 
-The recommended path is `npx skills`: it detects Codex and installs this skill globally. It requires Node.js 18+ (which includes `npx`).
+Use the `skills` installer when possible. If you also use Git cloning or a manual copy, do not install the same skill into the same location twice. Node.js 18+ (including `npx`) is required.
 
-### Recommended: npx skills
-
-```bash
-npx skills add Yjx98/harmonyos-arkts-engineering -g -a codex
-```
-
-Update to the latest version:
+### Quick Install (Recommended)
 
 ```bash
-npx skills update harmonyos-arkts-engineering -g
+npx skills@latest add Yjx98/harmonyos-arkts-engineering
 ```
 
-`npx` downloads and runs the `skills` CLI on demand, so a global npm package is not required. To manage the CLI yourself instead:
+### Specific Install: Codex Global
 
 ```bash
-npm install --global skills
-skills add Yjx98/harmonyos-arkts-engineering -g -a codex
+npx skills@latest add Yjx98/harmonyos-arkts-engineering -a codex -g
 ```
 
-After installation, restart Codex or refresh skill discovery.
+`-a codex` targets Codex only. `-g` makes the skill available across projects. The quick-install command lets the `skills` CLI guide the installation scope.
+
+### Update
+
+```bash
+npx skills@latest update harmonyos-arkts-engineering -g
+```
+
+`npx` downloads and runs the latest `skills` CLI on demand, so a global npm package is not required. After installation, restart Codex or refresh skill discovery.
 
 ### Alternative: Git Install
 
@@ -239,16 +231,6 @@ Update to the latest version:
 ```powershell
 git -C "$env:USERPROFILE\.codex\skills\harmonyos-arkts-engineering" pull --ff-only
 ```
-
-### Install with a Codex Command
-
-If your Codex environment has `skill-installer`, ask Codex to install directly:
-
-```text
-use $skill-installer install https://github.com/Yjx98/harmonyos-arkts-engineering
-```
-
-After installation, restart Codex or refresh skill discovery.
 
 ### Manual Install
 
