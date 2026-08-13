@@ -1,29 +1,34 @@
 ---
 name: ark-check
-description: Plan or run verification for HarmonyOS ArkTS changes. Use when the user asks how to test, review, build, compile, package, install, run on device, inspect logs, validate permissions, or decide the minimum evidence for a HarmonyOS change.
+description: Plan or run risk-proportionate verification for HarmonyOS ArkTS changes, including tests, builds, packages, installation, device checks, logs, permissions, failure triage, and review evidence.
 ---
 
 # Ark Check
 
-Choose the smallest sufficient evidence for the changed surface.
+Build a verification manifest from the changed surface and the project's available tooling. DevEco CLI is evidence collection, not a default side effect.
 
-## Evidence Ladder
+## Plan or Run
 
-| Change risk | Minimum evidence |
-| --- | --- |
-| Local ArkTS or resource change | Focused static inspection and closest existing test when available |
-| Shared state, service, parser, or persistence change | Relevant unit or integration tests, including an error path |
-| Permission, native bridge, dependency, or build configuration change | Relevant tests plus explicit build request or authorized build verification |
-| Device capability, rendering, location, or external service behavior | Authorized runtime or device verification with observable acceptance checks |
+1. Classify each changed surface by evidence profile: `local`, `doc-bound`, `config-bound`, or `runtime-bound`.
+2. Discover supported test, build, package, install, device, and log commands from project configuration and CLI help; do not copy fixed command lines or SDK paths into the skill.
+3. Select the smallest sufficient evidence: focused inspection/test, behavior test with failure path, authorized build, or authorized runtime/device check with observable acceptance criteria.
+4. Run builds, packages, installs, emulators, device commands, or log streams only when the user requested that verification scope. Record the exact command/check and result.
+5. State every intentional gap as an unverified runtime risk.
 
-## Test At Seams
+## Failure Routing
 
-Test public behavior of a component, ViewModel, service, repository, or adapter rather than private implementation details. Cover intended outcome, meaningful failure, and an edge condition created by the changed contract.
+When evidence fails, do not patch blindly. Route the failure to the command that owns the broken contract:
 
-## Build And Device Boundary
+| Failure signal | Route to | Reason |
+| --- | --- | --- |
+| Render, navigation, decorator, lifecycle, listener, timer, or stale UI completion | `$ark-ui` | The state/lifecycle ledger is incomplete or wrong. |
+| Loading, cache, parser, DTO, repository, service, stale request, or error-state issue | `$ark-flow` | The async contract is incomplete or wrong. |
+| Permission, API level, Kit behavior, module declaration, native bridge, dependency, or device capability | `$ark-kit` | The capability contract or official constraint is incomplete or wrong. |
+| Unknown owner, unexpected file boundary, or unsafe config implication | `$ark-scan` | The project change map is incomplete or wrong. |
 
-Do not launch DevEco Studio, emulators, device installation, full Hvigor builds, or device log streams unless the user asks to compile, package, install, test on device, or verify runtime behavior. When verification runs, report the exact command or check and result.
+## Deliver: Verification Manifest
 
-## Done
+| Changed surface | Evidence profile | Acceptance criterion | Discovered project command/check | Authorization needed | Result or remaining risk |
+| --- | --- | --- | --- | --- | --- |
 
-Before reporting completion, confirm every changed surface has corresponding evidence or an explicit unverified boundary. Keep the report to user-visible result, changed files, verification evidence, and material risks.
+Completion requires every changed surface to have evidence or a named unverified boundary. Read [verification.md](../references/verification.md) when selecting evidence for a mixed-surface change.

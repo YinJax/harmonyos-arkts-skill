@@ -1,36 +1,35 @@
 ---
 name: ark-ui
-description: Implement or modify HarmonyOS ArkUI pages and components. Use for ArkTS UI layout, component composition, @State or observed state, navigation, lifecycle, rendering side effects, controllers, listeners, timers, and cleanup behavior.
+description: Implement or modify ArkUI pages and components, including state, layout, navigation, lifecycle, controllers, listeners, timers, stale-result handling, and cleanup, with explicit state and lifecycle evidence.
 ---
 
-# ArkTS UI
+# Ark UI
 
-Keep UI behavior localized, predictable, and aligned with the project's existing ArkUI style.
-
-## State
-
-Choose the smallest owner that represents the user-visible fact.
-
-| State | Owner |
-| --- | --- |
-| Local input, animation, temporary panel state | Component |
-| Page coordination or navigation state | Page or existing ViewModel |
-| Cross-page preference | Existing app storage or preference wrapper |
-| Remote or persisted domain data | Service/repository plus the existing state owner |
-
-Use the project's established decorators and state-management pattern. Do not introduce a second state system for one feature.
-
-## Lifecycle
-
-Register listeners, timers, location callbacks, controllers, and observers at the owner that can reliably remove them. Make initialization idempotent when a page or component can reappear. Dispose registrations when the owner disappears, and ignore async completions that no longer belong to the current view or request.
+Keep user-visible state local, lifecycle work removable, and rendering aligned with the project's existing ArkUI pattern.
 
 ## Implement
 
-1. Keep rendering and direct user interaction in components.
-2. Put coordination, non-UI transitions, and business decisions in the existing ViewModel or manager layer.
-3. Pass values and callbacks through the narrowest existing interface.
-4. Preserve resource naming, imports, logging, error presentation, and component conventions.
+1. Inspect the page/component's existing decorators, state owner, navigation path, controllers, listeners, and error presentation before adding another mechanism.
+2. Choose the smallest owner for each new user-visible fact: component for transient UI, page or existing ViewModel for coordination, existing preference boundary for cross-page preference, and service/repository plus the existing state owner for remote or durable data.
+3. Keep rendering and direct interaction in components; put coordination and non-UI transitions in the existing ViewModel or manager.
+4. Register listeners, timers, callbacks, controllers, and observers at the owner that can remove them. Make re-entry initialization idempotent and ignore completions belonging to an obsolete page or request.
+5. When decorator semantics, lifecycle behavior, API compatibility, or platform widgets are material, verify them through the official documentation lookup before changing the code.
 
-## Done
+## Acceptance
 
-Finish with changed UI files, state owner, lifecycle cleanup evidence, and whether `$ark-check` should run.
+For a UI change, define the observable runtime behavior before verification:
+
+- Initial screen state.
+- User action or lifecycle event.
+- Expected visible result.
+- Failure or empty state if applicable.
+- Re-entry, disposal, or stale-completion behavior when async work exists.
+
+## Deliver: State/Lifecycle Ledger
+
+For each added or changed user-visible state, report:
+
+| Fact | Owner and existing decorator/pattern | Initialized by | Cleared or disposed by | Stale-result handling |
+| --- | --- | --- | --- | --- |
+
+Also report changed UI files, evidence profile, any official constraint used, and whether `$ark-check` is required. Read [arkui-and-architecture.md](../references/arkui-and-architecture.md) when ownership crosses component, page, and service boundaries. Completion requires every new registration and asynchronous completion to have an owner and an exit path.

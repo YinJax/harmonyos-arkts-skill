@@ -1,4 +1,4 @@
 interface:
   display_name: "Ark"
-  short_description: "Build HarmonyOS ArkTS projects safely"
-  default_prompt: "Use $ark to implement this HarmonyOS ArkTS request."
+  short_description: "Route ArkTS changes through project, docs, and verification evidence"
+  default_prompt: "Use $ark to plan and implement this HarmonyOS ArkTS change with project evidence."

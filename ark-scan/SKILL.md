@@ -1,28 +1,39 @@
 ---
 name: ark-scan
-description: Inspect HarmonyOS Stage-model ArkTS projects before editing. Use when the user asks to analyze, plan, understand project structure, identify safe boundaries, avoid config or signing risk, or decide which HarmonyOS ArkTS command should handle the work.
+description: Inspect a HarmonyOS Stage-model ArkTS project before modifying it. Use when task scope, file ownership, evidence profile, configuration impact, safe boundaries, or the next Ark command is unclear.
 ---
 
-# ArkTS Scan
+# Ark Scan
 
-Map the project before changing it. End with the smallest safe next action.
+Map the live project before editing. End with the smallest safe next action.
 
-## Scan
+## Inspect
 
-1. Identify modules, entry abilities, page routing, source layout, resource layout, existing tests, and affected feature ownership.
-2. Read only the live configuration needed for the request: SDK level, module declarations, permissions, dependencies, build tooling, signing, native/CMake, and lockfiles.
-3. Trace the current call path before proposing a new manager, event channel, singleton, storage key, dependency, or cross-module abstraction.
-4. Mark protected surfaces: signing, certificates, package identity, SDK compatibility, local device config, credentials, production constants, lockfiles, and generated build output.
+1. Identify modules, entry abilities, page routing, source and resource layout, test locations, and the feature owner.
+2. Trace the current request from UI or entry point through state, service, adapter, repository, and platform boundary before proposing a new manager, event channel, storage key, dependency, or cross-module abstraction.
+3. Read only configuration relevant to the request: SDK level, module declaration, permissions, dependencies, build tooling, native/CMake, signing, and lockfiles.
+4. Mark protected surfaces: signing, certificates, package identity, SDK compatibility, local device configuration, credentials, production constants, generated output, dependencies, and lockfiles.
+5. Assign an evidence profile: `local`, `doc-bound`, `config-bound`, or `runtime-bound`. Retrieve official documentation only when platform facts constrain the change.
 
-## Route
+## Tool Preflight
 
-| Finding | Next command |
-| --- | --- |
-| ArkUI page, component, state, navigation, or lifecycle | `$ark-ui` |
-| ViewModel, service, repository, DTO, loading, cache, or async coordination | `$ark-flow` |
-| Permission, file, persistence, network, WebView, native bridge, or device API | `$ark-kit` |
-| Test, build, package, install, device validation, or release readiness | `$ark-check` |
+When verification or platform evidence may be needed, discover what is available instead of assuming it:
 
-## Deliver
+- Official-document lookup or MCP available for API, Kit, permission, and API-level facts.
+- Project build/test scripts, DevEco CLI, Hvigor, or IDE-generated command surfaces.
+- Device, emulator, hdc, and log access when runtime evidence is in scope.
 
-Report the project boundary, the affected ownership path, protected surfaces, the chosen next command, and any user approval needed before configuration or device work.
+Record missing tools as constraints, not as failures, unless the user explicitly requested that evidence.
+
+## Deliver: Project Change Map
+
+Report all of the following:
+
+- Affected module and ownership path.
+- Entry point and current call path.
+- Evidence profile and why it applies.
+- Files likely to change and protected surfaces that need approval.
+- Official platform constraint, if one affects the request.
+- The next command (`$ark-ui`, `$ark-flow`, `$ark-kit`, or `$ark-check`) and the reason.
+
+The scan is complete only when another agent can locate the change boundary without rediscovering it.

@@ -1,30 +1,30 @@
 ---
 name: ark-flow
-description: Implement HarmonyOS ArkTS layered business and async flows. Use for ViewModel, service, repository, DTO, cache, parser, loading, error handling, navigation coordination, request identity, stale completion, and UI-to-data-source orchestration.
+description: Implement HarmonyOS ArkTS layered async flows across ViewModels, services, repositories, DTOs, cache, parsing, loading, errors, navigation coordination, request identity, and stale-result handling.
 ---
 
-# ArkTS Flow
+# Ark Flow
 
-Make the user-visible operation legible from component to data source.
+Make each user-visible operation traceable from its trigger to its data source and terminal state.
 
-## Boundaries
+## Implement
 
-Keep components focused on rendering and direct interaction. Put coordination and state transitions in the existing ViewModel or manager. Put storage, parsing, network, and platform I/O behind services, adapters, or repositories. Follow the local pattern when one exists.
+1. Follow the project's established component -> ViewModel/manager -> service/adapter/repository boundary; introduce a new layer only when an existing boundary cannot own the responsibility.
+2. Give every user-visible operation one state owner. It sets pending, initiates work, applies only the current result, surfaces a project-consistent failure, and clears pending on every terminal path.
+3. Preserve DTO, domain model, cache key, logging, and error conventions. Validate external input at the adapter boundary.
+4. Use request identity, cancellation, or the project's equivalent when repeated actions, navigation, refresh, searches, downloads, or tile loads can complete out of order.
+5. Verify official API behavior when a platform API or compatibility rule changes the flow.
 
-## Async Path
+## Acceptance
 
-For work visible to the user:
+For an async or layered flow, define:
 
-1. Start from one owner and set pending state.
-2. Call the existing service, adapter, or repository.
-3. Apply success only if the request is still current.
-4. Surface failure through the project's existing message or error state.
-5. Clear pending on every terminal outcome.
+- Trigger and state owner.
+- Pending, success, failure, and cancellation states.
+- Stale-result rule for repeated or navigated-away requests.
+- Data boundary: adapter, repository, service, cache, or parser.
+- Public verification point closest to the changed behavior.
 
-## Data Contracts
+## Deliver: Async Contract
 
-Use existing DTO, domain model, cache key, and repository conventions. Validate external input before parsing. Do not duplicate mutable copies of the same user-visible fact across component, ViewModel, and service layers.
-
-## Done
-
-Report the call path, state transitions, success/failure behavior, stale-result handling, and tests or verification still needed.
+Report trigger, state owner, downstream call path, evidence profile, pending behavior, success behavior, failure behavior, stale-result behavior, and verification point. Completion requires every terminal path to be observable to the user or deliberately represented by the project's existing state model.

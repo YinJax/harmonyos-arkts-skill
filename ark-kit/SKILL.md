@@ -1,33 +1,30 @@
 ---
 name: ark-kit
-description: Integrate HarmonyOS ArkTS platform capabilities. Use for permissions, files, Preferences, relational storage, network, WebView, notifications, location, MapKit, GNSS, Bluetooth, media, NAPI/C++ native bridges, device APIs, and system Kit boundaries.
+description: Integrate HarmonyOS ArkTS system capabilities, including permissions, files, storage, network, WebView, native bridges, MapKit, GNSS, Bluetooth, media, and device APIs, using official constraints and explicit failure behavior.
 ---
 
 # Ark Kit
 
-Treat every system API as a capability boundary.
+Treat each system API as a capability contract, not merely an import.
 
-## Capability First
+## Implement
 
-Inspect the target project's existing imports, module declarations, permissions, SDK level, and adapters before calling a HarmonyOS system API. Prefer the official Kit already used by the project. Treat live project configuration and official documentation as authoritative.
+1. Inspect existing imports, adapters, module declarations, permissions, and SDK level. Reuse the project's compatible Kit and boundary.
+2. Retrieve the official documentation for the proposed API and capture the facts that govern API level, permission declaration, runtime authorization, availability, error behavior, and required configuration.
+3. Separate declaration, runtime authorization, and feature behavior. Place authorization at the user action or feature entry point, then represent grant, denial, cancellation, and unavailable capability distinctly.
+4. Keep bundled resources, sandbox files, user-visible exports, caches, and durable data separate. Put I/O, parsing, and network work off the UI-critical path when the platform supports it.
+5. Present the smallest `module.json5`, dependency, native, or build-configuration diff for explicit user approval before editing that surface.
 
-## Permissions
+## Acceptance
 
-Separate declaration, runtime authorization, and feature behavior:
+For a capability change, define:
 
-1. Confirm whether the capability requires a declared permission.
-2. Request runtime authorization at the user action or feature entry point when required.
-3. Handle grant, denial, cancellation, and unavailable capability separately.
-4. Change `module.json5` only after the user explicitly authorizes the permission change.
+- API/Kit name and official constraint that affected implementation.
+- Permission declaration and runtime authorization behavior, if any.
+- SDK/API compatibility and unavailable-device behavior.
+- Data location, retention, and cleanup rule when storage or export is involved.
+- Runtime/device acceptance check when static verification cannot observe the capability.
 
-## Data And I/O
+## Deliver: Capability Contract
 
-Keep bundled resources, sandbox files, user-visible exports, caches, and durable user data separate. A cache must be recreatable; user data needs an intentional persistence and recovery path. Keep network, I/O, and parsing off the UI-critical path when the platform supports async execution.
-
-## Specialized Work
-
-For MapKit, GNSS, Bluetooth, NAPI/C++, media, or other hardware-facing work, search for an existing manager, adapter, or native bridge first. Preserve the public interface and isolate platform-specific types at that boundary.
-
-## Done
-
-Report the capability, required configuration changes, authorization behavior, failure paths, and runtime verification needed.
+Report capability, existing boundary, evidence profile, official constraint, SDK/API compatibility, declaration change, authorization behavior, unavailable/denied/failure behavior, data location where relevant, and required runtime acceptance checks. Read [platform-capabilities.md](../references/platform-capabilities.md) for storage, I/O, and concurrent-work boundaries. Completion requires every configuration change to have its purpose and user approval recorded.

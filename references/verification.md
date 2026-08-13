@@ -1,22 +1,23 @@
 # Verification
 
-## Choose The Smallest Sufficient Evidence
+Use this reference when a change touches more than one surface or when the required evidence is unclear.
 
-| Change risk | Minimum evidence |
-| --- | --- |
-| Local ArkTS or resource change | Focused static inspection and the closest existing test when available |
-| Shared state, service, parser, or persistence change | Relevant unit or integration tests, including an error path |
-| Permission, native bridge, dependency, or build configuration change | Relevant tests plus an explicit build request or authorized build verification |
-| Device capability, rendering, location, or external service behavior | Authorized runtime or device verification with observable acceptance checks |
+## Evidence Selection
 
-## Test Behavior At Seams
+| Evidence profile | Changed surface | Minimum evidence | Escalate when |
+| --- | --- | --- | --- |
+| `local` | Local ArkTS, ArkUI, or resource change inside known boundaries. | Focused inspection and closest existing test/check. | Rendering, navigation, lifecycle, or user-visible behavior changes. |
+| `doc-bound` | Platform API behavior, permission semantics, API level, or compatibility. | Official-document constraint plus local inspection/test. | The documented behavior changes config, error handling, or runtime availability. |
+| `config-bound` | Permission declaration, dependency, SDK, module config, native bridge, package identity, signing, or lockfile. | Explicit approval plus relevant test and authorized build. | The config change affects packaging, signing, installation, or native output. |
+| `runtime-bound` | Device capability, rendering, location, external service, install, logs, or hardware-dependent behavior. | Authorized runtime/device check with acceptance criteria. | Static tests or simulator checks cannot observe the intended outcome. |
 
-Test the public behavior of a component, ViewModel, service, or adapter rather than private implementation details. Cover the intended outcome, a meaningful failure, and an edge condition created by the changed contract. Reuse the project's test runner and directory conventions.
+## Verification Manifest
 
-## Build And Device Work
+Use this table in the final report. Discover commands from the target project and available CLI help; treat copied commands as stale until rediscovered.
 
-Do not launch DevEco Studio, emulators, device installation, or a full Hvigor build unless the user asks to compile, package, install, test on a device, or otherwise verify runtime behavior. When verification is run, report the exact command or check and its result. When it is skipped, state that the remaining risk is unverified runtime behavior.
+| Changed surface | Evidence profile | Acceptance criterion | Project command/check | Authorization | Result / remaining risk |
+| --- | --- | --- | --- | --- | --- |
 
-## Completion
+Test behavior at the public boundary of a component, ViewModel, service, repository, or adapter. Cover intended outcome, meaningful failure, and one edge condition created by the changed contract.
 
-Before reporting completion, re-read the requested outcome and confirm that every changed surface has corresponding evidence or an explicit unverified boundary. Keep the final report limited to the user-visible result, changed files, verification evidence, and material risks.
+Build, package, install, emulator, device, and log work require the user's requested verification scope. If skipped, name the remaining runtime risk rather than implying a full pass.
