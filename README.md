@@ -37,6 +37,18 @@ ark-scan -> ark-ui / ark-flow / ark-kit -> ark-check
 | DevEco CLI | 构建、安装、日志和设备上实际发生了什么？ |
 | Ark | 在这个项目里，应该怎么安全修改、验证和归因失败？ |
 
+## 它有什么不同？
+
+多数鸿蒙工具回答“API 怎么用”。Ark 回答“这个项目里应该怎么安全地改”。它把 Agent 最容易忽略的项目边界、配置风险、异步状态、平台约束和验证证据放进同一套工作流里。
+
+| 没有 Ark | 使用 Ark |
+| --- | --- |
+| Agent 直接改文件 | 先扫描项目边界和调用链 |
+| API 靠记忆或搜索片段判断 | 平台约束走官方文档 MCP |
+| 权限、SDK、签名等配置风险被顺手改掉 | 配置风险单独标记并先请求确认 |
+| 构建和真机结果混在描述里 | 验证证据、剩余风险单独说明 |
+| 失败后继续试错式改代码 | 按失败信号回到对应命令 |
+
 ## 适合用在
 
 - 接手陌生 HarmonyOS ArkTS 项目，先识别模块、调用链和安全边界。
@@ -138,6 +150,18 @@ ark-scan -> ark-ui / ark-flow / ark-kit -> ark-check
 | Official docs MCP | What are the platform rules, API constraints, permissions, and compatibility limits? |
 | DevEco CLI | What actually happened during build, install, logs, and device execution? |
 | Ark | How should this project be changed, verified, and failure-triaged safely? |
+
+## What makes it different?
+
+Most HarmonyOS helpers answer "what is the API?" Ark answers "how should this project be changed safely?" It keeps the project boundary, config risk, async state, platform constraint, and verification evidence in one workflow.
+
+| Without Ark | With Ark |
+| --- | --- |
+| The agent edits files directly | It scans project boundaries and call paths first |
+| APIs are judged from memory or snippets | Platform constraints come from the official docs MCP |
+| Permission, SDK, signing, or config risk gets changed casually | Config risk is flagged and confirmed first |
+| Build and device results are buried in prose | Evidence and remaining risk are reported explicitly |
+| Failures lead to trial-and-error edits | Failures route back to the owning command |
 
 ## Best for
 
