@@ -52,6 +52,28 @@ Ark 是一个面向 HarmonyOS Stage-model ArkTS 项目的 Codex Skill。它不�
 | `ark-kit` | 接入权限、存储、网络、WebView、定位、通知等能力。 | 同步处理官方约束、权限配置和设备行为。 |
 | `ark-check` | 规划或执行构建、打包、安装、日志和设备验证。 | 明确验证证据、剩余风险和失败归因。 |
 
+## 使用示例
+
+```text
+用 ark 帮我判断这个 HarmonyOS ArkTS 需求应该先扫描项目、改 UI、接 Kit，还是先补验证。
+```
+
+```text
+用 ark-scan 帮我分析这个项目的模块边界、调用链和哪些配置不应该直接改。
+```
+
+```text
+用 ark-ui 帮我修改这个 ArkUI 页面，并说明状态归属、生命周期清理和旧请求处理方式。
+```
+
+```text
+用 ark-flow 帮我梳理列表加载流程，补齐加载、失败、取消、重试和缓存状态。
+```
+
+```text
+用 ark-kit 和 ark-check 帮我接入定位能力，并确认权限、配置、真机验证和剩余风险。
+```
+
 ## 推荐流程
 
 ```text
@@ -122,6 +144,28 @@ Ark is a Codex Skill for HarmonyOS Stage-model ArkTS projects. It does not copy 
 | `ark-flow` | Shape ViewModel, service, repository, and async states. | Keep loading, failure, cancel, and retry paths traceable. |
 | `ark-kit` | Integrate permissions, storage, networking, WebView, location, notifications, and platform APIs. | Align official constraints, permissions, config, and device behavior. |
 | `ark-check` | Plan or run build, package, install, log, and device verification. | Show evidence, remaining risk, and failure ownership. |
+
+## Usage Examples
+
+```text
+Use ark to decide whether this HarmonyOS ArkTS task should start with project scanning, UI work, Kit integration, or verification.
+```
+
+```text
+Use ark-scan to map this project's module boundaries, call paths, and protected configuration before editing.
+```
+
+```text
+Use ark-ui to change this ArkUI page and report state ownership, lifecycle cleanup, and stale request handling.
+```
+
+```text
+Use ark-flow to shape this list-loading flow with loading, failure, cancel, retry, and cache states.
+```
+
+```text
+Use ark-kit and ark-check to integrate location, then verify permissions, config, device behavior, and remaining risk.
+```
 
 ## Recommended Route
 
