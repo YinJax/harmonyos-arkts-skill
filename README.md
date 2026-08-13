@@ -3,12 +3,12 @@
 <p align="center">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
   <img alt="HarmonyOS" src="https://img.shields.io/badge/HarmonyOS-Stage%20Model-red.svg">
-  <img alt="ArkTS" src="https://img.shields.io/badge/ArkTS-Workflow-2f80ed.svg">
+  <img alt="ArkTS" src="https://img.shields.io/badge/ArkTS-Agent%20Workflow-2f80ed.svg">
   <img alt="Codex Skill" src="https://img.shields.io/badge/Codex-Skill-111827.svg">
 </p>
 
 <p align="center">
-  <strong>Project-first agent workflow for HarmonyOS ArkTS development.</strong>
+  <strong>Turn HarmonyOS ArkTS changes into scoped, documented, and verified agent workflows.</strong>
 </p>
 
 <p align="center">
@@ -22,7 +22,20 @@
 
 ## 一句话
 
-Ark 是一个面向 HarmonyOS Stage-model ArkTS 项目的 Codex Skill。它不复述官方 API，也不替代 DevEco CLI，而是把“项目事实、官方约束、构建/设备证据”组织成一套可执行的安全变更流程。
+Ark 把鸿蒙 ArkTS 改动变成有边界、有证据、可验证的 Agent 工作流。它不复述官方 API，也不替代 DevEco CLI，而是把项目事实、官方约束、构建/设备证据放进同一条安全变更链路。
+
+```text
+Discover -> Change -> Verify
+ark-scan -> ark-ui / ark-flow / ark-kit -> ark-check
+```
+
+## Why Ark?
+
+| 工具 | 回答的问题 |
+| --- | --- |
+| 官方文档 MCP | 平台规则、API 约束、权限和兼容性是什么？ |
+| DevEco CLI | 构建、安装、日志和设备上实际发生了什么？ |
+| Ark | 在这个项目里，应该怎么安全修改、验证和归因失败？ |
 
 ## 适合用在
 
@@ -54,33 +67,25 @@ Ark 是一个面向 HarmonyOS Stage-model ArkTS 项目的 Codex Skill。它不�
 
 ## 使用示例
 
+| 场景 | 使用 |
+| --- | --- |
+| 不知道需求该从哪里下手 | `ark` |
+| 接手陌生项目，先找边界 | `ark-scan` |
+| 页面状态、导航或生命周期有风险 | `ark-ui` |
+| 请求、缓存、失败流混乱 | `ark-flow` |
+| 接入定位、网络、权限等平台能力 | `ark-kit` + `ark-check` |
+
 ```text
-用 ark 帮我判断这个 HarmonyOS ArkTS 需求应该先扫描项目、改 UI、接 Kit，还是先补验证。
+用 ark 判断这个需求应该先扫描项目、改 UI、接 Kit，还是先补验证。
 ```
 
 ```text
-用 ark-scan 帮我分析这个项目的模块边界、调用链和哪些配置不应该直接改。
+用 ark-ui 修改这个页面，并说明状态归属、生命周期清理和旧请求处理方式。
 ```
 
 ```text
-用 ark-ui 帮我修改这个 ArkUI 页面，并说明状态归属、生命周期清理和旧请求处理方式。
+用 ark-kit 和 ark-check 接入定位能力，并确认权限、配置、真机验证和剩余风险。
 ```
-
-```text
-用 ark-flow 帮我梳理列表加载流程，补齐加载、失败、取消、重试和缓存状态。
-```
-
-```text
-用 ark-kit 和 ark-check 帮我接入定位能力，并确认权限、配置、真机验证和剩余风险。
-```
-
-## 推荐流程
-
-```text
-ark-scan -> ark-ui / ark-flow / ark-kit -> ark-check
-```
-
-`ark-scan` 先确认项目边界和证据等级；`ark-ui`、`ark-flow`、`ark-kit` 分别交付 UI、业务流、平台能力契约；`ark-check` 做最小充分验证，并把失败信号路由回正确命令。
 
 ## 安装
 
@@ -98,9 +103,13 @@ npx skills@latest add YinJax/harmonyos-arkts-skill -a codex -g
 
 如果你之前安装过旧版本，可能会看到旧命令名：`harmonyos-arkts-skill`、`arkts-scan`、`arkts-ui`、`arkts-flow`、`arkts-capability`、`arkts-verify`。建议更新后统一使用新的短命令。
 
-## 边界
+## 不做什么
 
-Ark 只沉淀通用鸿蒙工程工作流。产品逻辑、账号、证书、签名配置、本地 SDK 路径、设备参数和生产常量都应留在目标项目中。
+- 不缓存官方 API 表，平台事实以官方文档 MCP 为准。
+- 不写死 DevEco、本地 SDK、设备 ID 或证书路径。
+- 不保存签名配置、账号、密钥或生产常量。
+- 不替代目标项目自己的业务规则和架构约定。
+- 不把未运行的真机或构建验证描述成已经验证。
 
 ## 许可证
 
@@ -115,7 +124,20 @@ MIT
 
 ## One-liner
 
-Ark is a Codex Skill for HarmonyOS Stage-model ArkTS projects. It does not copy official API docs or replace DevEco CLI; it turns project facts, official constraints, and build/device evidence into a safe change workflow.
+Ark turns HarmonyOS ArkTS changes into scoped, documented, and verified agent workflows. It does not copy official API docs or replace DevEco CLI; it puts project facts, official constraints, and build/device evidence into one safe change loop.
+
+```text
+Discover -> Change -> Verify
+ark-scan -> ark-ui / ark-flow / ark-kit -> ark-check
+```
+
+## Why Ark?
+
+| Tool | Answers |
+| --- | --- |
+| Official docs MCP | What are the platform rules, API constraints, permissions, and compatibility limits? |
+| DevEco CLI | What actually happened during build, install, logs, and device execution? |
+| Ark | How should this project be changed, verified, and failure-triaged safely? |
 
 ## Best for
 
@@ -147,33 +169,25 @@ Ark is a Codex Skill for HarmonyOS Stage-model ArkTS projects. It does not copy 
 
 ## Usage Examples
 
+| Scenario | Use |
+| --- | --- |
+| You do not know where the task should start | `ark` |
+| You inherited an unfamiliar project | `ark-scan` |
+| Page state, navigation, or lifecycle is risky | `ark-ui` |
+| Request, cache, and failure flow is messy | `ark-flow` |
+| You are integrating location, network, permissions, or another platform capability | `ark-kit` + `ark-check` |
+
 ```text
-Use ark to decide whether this HarmonyOS ArkTS task should start with project scanning, UI work, Kit integration, or verification.
+Use ark to decide whether this task should start with project scanning, UI work, Kit integration, or verification.
 ```
 
 ```text
-Use ark-scan to map this project's module boundaries, call paths, and protected configuration before editing.
-```
-
-```text
-Use ark-ui to change this ArkUI page and report state ownership, lifecycle cleanup, and stale request handling.
-```
-
-```text
-Use ark-flow to shape this list-loading flow with loading, failure, cancel, retry, and cache states.
+Use ark-ui to change this page and report state ownership, lifecycle cleanup, and stale request handling.
 ```
 
 ```text
 Use ark-kit and ark-check to integrate location, then verify permissions, config, device behavior, and remaining risk.
 ```
-
-## Recommended Route
-
-```text
-ark-scan -> ark-ui / ark-flow / ark-kit -> ark-check
-```
-
-`ark-scan` establishes project boundaries and evidence level. `ark-ui`, `ark-flow`, and `ark-kit` implement the relevant contract. `ark-check` performs the smallest sufficient verification and routes failures back to the right command.
 
 ## Installation
 
@@ -191,9 +205,13 @@ After updating, refresh skill discovery or restart Codex. The current command na
 
 Older installs may still show the previous names: `harmonyos-arkts-skill`, `arkts-scan`, `arkts-ui`, `arkts-flow`, `arkts-capability`, and `arkts-verify`. Prefer the new shorter names after updating.
 
-## Scope
+## Non-goals
 
-Ark stores reusable HarmonyOS engineering workflow rules only. Product logic, credentials, certificates, signing configuration, local SDK paths, device parameters, and production constants remain in the target project.
+- Do not cache official API tables; platform facts should come from the official docs MCP.
+- Do not hard-code DevEco, local SDK, device ID, or certificate paths.
+- Do not store signing configuration, accounts, secrets, or production constants.
+- Do not replace the target project's own business rules and architecture conventions.
+- Do not report unrun build or device checks as verified.
 
 ## License
 
